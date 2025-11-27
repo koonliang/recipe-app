@@ -6,6 +6,7 @@
 .env
 .env.local
 .env.*.local
+kind-k8s-cluster/.env
 
 # Allow example environment files (safe to commit)
 !.env.example
@@ -136,6 +137,8 @@ coverage/
 # =============================================================================
 # AWS / LAMBDA
 # =============================================================================
+
+.aws/credentials
 
 # AWS SAM
 .aws-sam/
