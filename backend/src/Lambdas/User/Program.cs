@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
+using Core.Application.Interfaces;
 
 // Load .env file for local development
 Env.Load();
@@ -99,6 +100,9 @@ using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<RecipeAppDbContext>();
         context.Database.EnsureCreated();
+        // Run seeding if configured
+        var seedDataService = scope.ServiceProvider.GetRequiredService<ISeedDataService>();
+        await seedDataService.SeedAsync();
     }
     catch (Exception ex) when (ex.Message.Contains("Unable to connect") || ex.Message.Contains("MySQL"))
     {

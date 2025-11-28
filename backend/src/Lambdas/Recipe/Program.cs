@@ -76,12 +76,7 @@ using (var scope = app.Services.CreateScope())
     try 
     {
         var context = scope.ServiceProvider.GetRequiredService<RecipeAppDbContext>();
-        var seedDataService = scope.ServiceProvider.GetRequiredService<ISeedDataService>();
-        
         context.Database.EnsureCreated();
-        
-        // Run seeding if configured
-        await seedDataService.SeedAsync();
     }
     catch (Exception ex) when (ex.Message.Contains("Unable to connect") || ex.Message.Contains("MySQL"))
     {
